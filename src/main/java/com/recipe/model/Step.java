@@ -21,5 +21,39 @@ public class Step {
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
-    // Constructors, getters, and setters
+    // デフォルトコンストラクタ
+    public Step() {}
+
+    // 新しいコンストラクタ
+    public Step(Recipe recipe, int stepNumber, String stepDetail, String point) {
+        this.recipe = recipe;
+        this.stepNumber = stepNumber;
+        this.stepDetail = stepDetail;
+        this.point = point;
+    }
+    //getterとsetter
+	public int getStepNumber() {
+		return stepNumber;
+	}
+
+	public void setStepNumber(int stepNumber) {
+		this.stepNumber = stepNumber;
+	}
+
+	public String getStepDetail() {
+		return stepDetail;
+	}
+
+	public void setStepDetail(String stepDetail) {
+		this.stepDetail = stepDetail;
+	}
+
+	public String getPoint() {
+		return point;
+	}
+
+	public void setPoint(String point) {
+		this.point = point;
+	}
+
 }

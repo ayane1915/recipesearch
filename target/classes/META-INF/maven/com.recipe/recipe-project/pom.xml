@@ -1,79 +1,66 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.recipe</groupId>
     <artifactId>recipe-project</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>recipe-project</name>
-    <description>Spring Boot project for recipe management</description>
+    <description>Recipe project using Spring Boot</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.18</version>
+        <version>2.7.1</version> <!-- 使用するSpring Bootのバージョンを指定 -->
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-	<properties>
-	    <java.version>17</java.version>
-	    <maven.compiler.source>${java.version}</maven.compiler.source>
-	    <maven.compiler.target>${java.version}</maven.compiler.target>
-	</properties>
+    <properties>
+        <java.version>17</java.version> <!-- 使用するJavaのバージョンを指定 -->
+    </properties>
 
     <dependencies>
-        <!-- Spring Boot dependencies -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
+        <!-- Spring Boot Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Database driver -->
+        <!-- Spring Boot Data JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
 
-        <!-- JSTL for JSP -->
+        <!-- JSTL -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
         </dependency>
 
-        <!-- Spring Boot Test dependencies -->
+        <!-- MySQL Connector -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.30</version> <!-- バージョンを指定 -->
+        </dependency>
+
+        <!-- Thymeleaf (optional) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <!-- Test dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <!-- JSTL -->
-    <dependency>
-        <groupId>ja.servlet</groupId>
-        <artifactId>jstl</artifactId>
-    </dependency>
-    <!-- Tomcat Embed Jasper -->
-    <dependency>
-        <groupId>org.apache.tomcat.embed</groupId>
-        <artifactId>tomcat-embed-jasper</artifactId>
-    </dependency>
-    <!-- Spring Boot DevTools -->
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-devtools</artifactId>
-        <optional>true</optional>
-    </dependency>
 
     <build>
         <plugins>
