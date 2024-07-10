@@ -16,9 +16,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <properties>
-        <java.version>17</java.version>
-    </properties>
+	<properties>
+	    <java.version>17</java.version>
+	    <maven.compiler.source>${java.version}</maven.compiler.source>
+	    <maven.compiler.target>${java.version}</maven.compiler.target>
+	</properties>
 
     <dependencies>
         <!-- Spring Boot dependencies -->
