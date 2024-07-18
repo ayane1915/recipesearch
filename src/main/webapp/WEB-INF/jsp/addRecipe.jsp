@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -14,6 +15,7 @@
                 <input type="text" name="amounts" required>
                 <label for="unit">単位:</label>
                 <input type="text" name="units" required>
+                <button type="button" onclick="removeIngredient(this)">削除</button>
             `;
             document.getElementById('ingredients').appendChild(ingredientDiv);
         }
@@ -25,13 +27,25 @@
                 <textarea name="stepDetails" required></textarea>
                 <label for="point">ポイント:</label>
                 <textarea name="points"></textarea>
+                <button type="button" onclick="removeStep(this)">削除</button>
             `;
             document.getElementById('steps').appendChild(stepDiv);
+        }
+
+        function removeIngredient(button) {
+            button.parentNode.remove();
+        }
+
+        function removeStep(button) {
+            button.parentNode.remove();
         }
     </script>
 </head>
 <body>
     <h1>レシピ追加</h1>
+    <c:if test="${not empty message}">
+	    <p>${message}</p>
+	</c:if>
     <form action="/recipe/add" method="post">
         <label for="recipeName">レシピ名:</label>
         <input type="text" id="recipeName" name="recipeName" required>
@@ -49,6 +63,7 @@
                 <input type="text" name="amounts" required>
                 <label for="unit">単位:</label>
                 <input type="text" name="units" required>
+                <button type="button" onclick="removeIngredient(this)">削除</button>
             </div>
         </div>
         <button type="button" onclick="addIngredient()">材料追加</button>
@@ -60,12 +75,14 @@
                 <textarea name="stepDetails" required></textarea>
                 <label for="point">ポイント:</label>
                 <textarea name="points"></textarea>
+                <button type="button" onclick="removeStep(this)">削除</button>
             </div>
         </div>
         <button type="button" onclick="addStep()">工程追加</button>
 
         <br><br>
         <button type="submit">追加</button>
+        <a href="/recipe/" style="text-decoration: none; margin-left: 10px;"><button type="button">戻る</button></a>
     </form>
 </body>
 </html>

@@ -50,9 +50,9 @@ public class RecipeService {
         }
     }
 
-//    public void deleteRecipe(Long recipeId) {
-//        recipeRepository.deleteById(recipeId);
-//        ingredientRepository.deleteByRecipeId(recipeId);
-//        stepRepository.deleteByRecipeId(recipeId);
-//    }
+    public void deleteRecipe(Long recipeId) {
+        recipeRepository.deleteById(recipeId);
+        ingredientRepository.deleteByRecipe_RecipeId(recipeId);
+        stepRepository.deleteByRecipe_RecipeId(recipeId);
+    }
 }

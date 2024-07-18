@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,12 +23,6 @@ public class RecipeController {
     @GetMapping("/")
     public String showSearchPage() {
         return "search";
-    }
-
-    @GetMapping("/index")
-    public String index(Model model) {
-        // ここで必要なデータをModelに追加する
-        return "index"; // src/main/resources/templates/index.htmlを表示
     }
 
     @GetMapping("/search")
@@ -50,12 +45,31 @@ public class RecipeController {
     public String addRecipe(@RequestParam String recipeName, @RequestParam String recipeSummary, @RequestParam String category,
                             @RequestParam List<String> ingredientNames, @RequestParam List<String> amounts, @RequestParam List<String> units,
                             @RequestParam List<String> stepDetails, @RequestParam List<String> points, Model model) {
-        if (recipeName.isEmpty() || ingredientNames.isEmpty() || amounts.isEmpty() || units.isEmpty() || stepDetails.isEmpty()) {
+//    	boolean checkFullWidth = false;
+
+    	if (recipeName.isEmpty() || ingredientNames.isEmpty() || amounts.isEmpty() || units.isEmpty() || stepDetails.isEmpty()) {
             model.addAttribute("errorMessage", "必須項目を入力してください。");
             return "addRecipe";
         }
+//    	for (String amount : amounts) {
+//    	    if (!amount.matches("[\\x00-\\x7F]+")) {
+//    	    	checkFullWidth = true;
+//    	        break;
+//    	    }
+//    	}
+//        if (checkFullWidth) {
+//            model.addAttribute("errorMessage", "半角数字を入力してください。");
+//            return "addRecipe";
+//        }
+
         recipeService.addRecipe(recipeName, recipeSummary, category, ingredientNames, amounts, units, stepDetails, points);
         model.addAttribute("message", "登録が完了しました。");
         return "addRecipe";
+    }
+
+    @PostMapping("/delete/{recipeId}")
+    public String deleteRecipe(@PathVariable Long recipeId) {
+        recipeService.deleteRecipe(recipeId);
+        return "redirect:/search";
     }
 }
