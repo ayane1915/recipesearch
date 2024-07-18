@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -31,7 +32,7 @@
 </head>
 <body>
     <h1>レシピ追加</h1>
-    <form action="/add" method="post">
+    <form action="/recipe/add" method="post">
         <label for="recipeName">レシピ名:</label>
         <input type="text" id="recipeName" name="recipeName" required>
         <label for="recipeSummary">レシピ概要:</label>

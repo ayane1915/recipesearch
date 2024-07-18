@@ -1,9 +1,11 @@
 package com.recipe.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Ingredient {
@@ -11,7 +13,12 @@ public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ingredientId;
-    private Long recipeId;
+
+    // @ManyToOneと@JoinColumnを使用してRecipeクラスとの関連付けを行う
+    @ManyToOne
+    @JoinColumn(name = "recipe_id")
+    private Recipe recipe;
+
     private String ingredientName;
     private String amount;
     private String unit;
@@ -20,43 +27,51 @@ public class Ingredient {
     public Ingredient() {}
 
     // 新しいコンストラクタ
-    public Ingredient(Long recipeId, String ingredientName, String amount, String unit) {
-        this.recipeId = recipeId;
+    public Ingredient(Recipe recipe, String ingredientName, String amount, String unit) {
+        this.recipe = recipe;
         this.ingredientName = ingredientName;
         this.amount = amount;
         this.unit = unit;
     }
 
-    //getterとsetter
-    public Long getRecipeId() {
-        return recipeId;
+    // getterとsetter
+    public Long getIngredientId() {
+        return ingredientId;
     }
 
-    public void setRecipeId(Long recipeId) {
-        this.recipeId = recipeId;
+    public void setIngredientId(Long ingredientId) {
+        this.ingredientId = ingredientId;
     }
 
-	public String getIngredientName() {
-		return ingredientName;
-	}
+    public Recipe getRecipe() {
+        return recipe;
+    }
 
-	public void setIngredientName(String ingredientName) {
-		this.ingredientName = ingredientName;
-	}
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
 
-	public String getAmount() {
-		return amount;
-	}
+    public String getIngredientName() {
+        return ingredientName;
+    }
 
-	public void setAmount(String amount) {
-		this.amount = amount;
-	}
+    public void setIngredientName(String ingredientName) {
+        this.ingredientName = ingredientName;
+    }
 
-	public String getUnit() {
-		return unit;
-	}
+    public String getAmount() {
+        return amount;
+    }
 
-	public void setUnit(String unit) {
-		this.unit = unit;
-	}
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
 }

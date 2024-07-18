@@ -6,20 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.recipe.model.Recipe;
 import com.recipe.service.RecipeService;
 
 @Controller
-@RequestMapping("/recipe")
+//@RequestMapping("/recipe")
 public class RecipeController {
 
-	// 依存性の注入
-	@Autowired
+    @Autowired
     private RecipeService recipeService;
 
     @GetMapping("/")
@@ -27,10 +24,15 @@ public class RecipeController {
         return "search";
     }
 
+    @GetMapping("/index")
+    public String index(Model model) {
+        // ここで必要なデータをModelに追加する
+        return "index"; // src/main/resources/templates/index.htmlを表示
+    }
+
     @GetMapping("/search")
     public String searchRecipes(@RequestParam(required = false) String recipeName, @RequestParam(required = false) String ingredientName, Model model) {
-
-       List<Recipe> recipes = recipeService.searchRecipes(recipeName, ingredientName);
+        List<Recipe> recipes = recipeService.searchRecipes(recipeName, ingredientName);
         if (recipes.isEmpty()) {
             model.addAttribute("message", "検索結果0件");
         } else {
@@ -55,12 +57,5 @@ public class RecipeController {
         recipeService.addRecipe(recipeName, recipeSummary, category, ingredientNames, amounts, units, stepDetails, points);
         model.addAttribute("message", "登録が完了しました。");
         return "addRecipe";
-    }
-
-    @PostMapping("/delete/{recipeId}")
-    public String deleteRecipe(@PathVariable Long recipeId, Model model) {
-        recipeService.deleteRecipe(recipeId);
-        model.addAttribute("message", "レシピを削除しました。");
-        return "redirect:/";
     }
 }

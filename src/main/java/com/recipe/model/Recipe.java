@@ -2,12 +2,12 @@ package com.recipe.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Recipe {
@@ -36,34 +36,51 @@ public class Recipe {
     }
 
     //getterとsetter
-	public Long getRecipeId() {
-		return recipeId;
-	}
+    public Long getRecipeId() {
+        return recipeId;
+    }
 
-	public void setRecipeId(Long recipeId) {
-		this.recipeId = recipeId;
-	}
-	public String getRecipeName() {
-		return recipeName;
-	}
+    public void setRecipeId(Long recipeId) {
+        this.recipeId = recipeId;
+    }
 
-	public void setRecipeName(String recipeName) {
-		this.recipeName = recipeName;
-	}
+    public String getRecipeName() {
+        return recipeName;
+    }
 
-	public String getRecipeSummary() {
-		return recipeSummary;
-	}
+    public void setRecipeName(String recipeName) {
+        this.recipeName = recipeName;
+    }
 
-	public void setRecipeSummary(String recipeSummary) {
-		this.recipeSummary = recipeSummary;
-	}
+    public String getRecipeSummary() {
+        return recipeSummary;
+    }
 
-	public String getCategory() {
-		return category;
-	}
+    public void setRecipeSummary(String recipeSummary) {
+        this.recipeSummary = recipeSummary;
+    }
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public List<Step> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<Step> steps) {
+        this.steps = steps;
+    }
 }
