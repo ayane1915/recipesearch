@@ -46,7 +46,8 @@
     <c:if test="${not empty message}">
 	    <p>${message}</p>
 	</c:if>
-    <form action="/recipe/add" method="post">
+
+    <form action="/add" method="post">
         <label for="recipeName">レシピ名:</label>
         <input type="text" id="recipeName" name="recipeName" required>
         <label for="recipeSummary">レシピ概要:</label>
@@ -64,9 +65,9 @@
                 <label for="unit">単位:</label>
                 <input type="text" name="units" required>
                 <button type="button" onclick="removeIngredient(this)">削除</button>
+                <button type="button" onclick="addIngredient()">材料追加</button>
             </div>
         </div>
-        <button type="button" onclick="addIngredient()">材料追加</button>
 
         <h2>工程</h2>
         <div id="steps">
@@ -82,7 +83,7 @@
 
         <br><br>
         <button type="submit">追加</button>
-        <a href="/recipe/" style="text-decoration: none; margin-left: 10px;"><button type="button">戻る</button></a>
+        <a href="/" style="text-decoration: none; margin-left: 10px;"><button type="button">戻る</button></a>
     </form>
 </body>
 </html>
