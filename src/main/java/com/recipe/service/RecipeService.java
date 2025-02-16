@@ -1,5 +1,6 @@
 package com.recipe.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,14 +42,20 @@ public class RecipeService {
     public void addRecipe(CreateRecipeForm CreateRecipeForm) {
         Recipe recipe = new Recipe(CreateRecipeForm.getRecipeName(), CreateRecipeForm.getRecipeSummary(), CreateRecipeForm.getCategory());
         recipeRepository.save(recipe);
+
+        List<Ingredient> ingredients = new ArrayList<Ingredient>();
         for (int i = 0; i < CreateRecipeForm.getIngredientNames().size(); i++) {
             Ingredient ingredient = new Ingredient(recipe, CreateRecipeForm.getIngredientNames().get(i), CreateRecipeForm.getAmounts().get(i), CreateRecipeForm.getUnits().get(i));
-            ingredientRepository.save(ingredient);
+            ingredients.add(ingredient);
         }
+        ingredientRepository.saveAll(ingredients);
+
+        List<Step> steps = new ArrayList<Step>();
         for (int i = 0; i < CreateRecipeForm.getStepDetails().size(); i++) {
             Step step = new Step(recipe, i + 1, CreateRecipeForm.getStepDetails().get(i), CreateRecipeForm.getPoints().get(i));
-            stepRepository.save(step);
-        }
+            steps.add(step);
+            }
+        stepRepository.saveAll(steps);
     }
 
     public void deleteRecipe(Long recipeId) {

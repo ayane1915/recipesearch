@@ -39,13 +39,32 @@
         function removeStep(button) {
             button.parentNode.remove();
         }
+
+        function fillTestData() {
+            document.getElementById("recipeName").value = "テストレシピ";
+            document.getElementById("recipeSummary").value = "これはテスト用のレシピです。";
+            document.getElementById("category").value = "和食";
+
+            let ingredientInputs = document.querySelectorAll("#ingredients div");
+            if (ingredientInputs.length === 1) {
+                ingredientInputs[0].querySelector("input[name='ingredientNames']").value = "鶏肉";
+                ingredientInputs[0].querySelector("input[name='amounts']").value = "200";
+                ingredientInputs[0].querySelector("input[name='units']").value = "g";
+            }
+
+            let stepInputs = document.querySelectorAll("#steps div");
+            if (stepInputs.length === 1) {
+                stepInputs[0].querySelector("textarea[name='stepDetails']").value = "鶏肉を一口大に切る。";
+                stepInputs[0].querySelector("textarea[name='points']").value = "なるべく均等な大きさにする。";
+            }
+        }
     </script>
 </head>
 <body>
     <h1>レシピ追加</h1>
     <c:if test="${not empty message}">
-	    <p>${message}</p>
-	</c:if>
+        <p>${message}</p>
+    </c:if>
 
     <form action="/add" method="post">
         <label for="recipeName">レシピ名:</label>
@@ -83,6 +102,7 @@
 
         <br><br>
         <button type="submit">追加</button>
+        <button type="button" onclick="fillTestData()">テストデータ入力</button>
         <a href="/" style="text-decoration: none; margin-left: 10px;"><button type="button">戻る</button></a>
     </form>
 </body>
