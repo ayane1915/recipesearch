@@ -1,35 +1,38 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>Add Recipe</title>
-    <script>
+<meta charset="UTF-8">
+<title>レシピ追加</title>
+<link rel="stylesheet" type="text/css" href="/css/addRecipe.css">
+<script>
         function addIngredient() {
             var ingredientDiv = document.createElement('div');
             ingredientDiv.innerHTML = `
-                <label for="ingredientName">材料:</label>
+                <label for="ingredientName">ing.</label>
                 <input type="text" name="ingredientNames" required>
-                <label for="amount">量:</label>
+                <label for="amount">amounts</label>
                 <input type="text" name="amounts" required>
-                <label for="unit">単位:</label>
+                <label for="unit">unit</label>
                 <input type="text" name="units" required>
                 <button type="button" onclick="removeIngredient(this)">削除</button>
             `;
             document.getElementById('ingredients').appendChild(ingredientDiv);
         }
 
+        var stepCount = 2;
         function addStep() {
             var stepDiv = document.createElement('div');
             stepDiv.innerHTML = `
-                <label for="stepDetail">工程:</label>
+                <label for="stepDetail">` + stepCount + ` :</label>
                 <textarea name="stepDetails" required></textarea>
-                <label for="point">ポイント:</label>
+                <label for="point">point</label>
                 <textarea name="points"></textarea>
                 <button type="button" onclick="removeStep(this)">削除</button>
             `;
             document.getElementById('steps').appendChild(stepDiv);
+            stepCount++;
         }
 
         function removeIngredient(button) {
@@ -61,49 +64,53 @@
     </script>
 </head>
 <body>
-    <h1>レシピ追加</h1>
-    <c:if test="${not empty message}">
-        <p>${message}</p>
-    </c:if>
+	<h1>Add Recipe</h1>
+	<c:if test="${not empty message}">
+		<p>${message}</p>
+	</c:if>
 
-    <form action="/add" method="post">
-        <label for="recipeName">レシピ名:</label>
-        <input type="text" id="recipeName" name="recipeName" required>
-        <label for="recipeSummary">レシピ概要:</label>
-        <textarea id="recipeSummary" name="recipeSummary"></textarea>
-        <label for="category">カテゴリ:</label>
-        <input type="text" id="category" name="category">
+	<form action="/add" method="post">
+		<div class="recipe_form">
+			<label for="recipeName">recipeName</label> <input type="text"
+				id="recipeName" name="recipeName" required placeholder="レシピ名"> <label
+				for="recipeSummary">Summary</label>
+			<textarea id="recipeSummary" name="recipeSummary" placeholder="概要"></textarea>
+			<label for="category">category</label> <input type="text" id="category"
+				name="category" placeholder="カテゴリ">
+		</div>
 
-        <h2>材料</h2>
-        <div id="ingredients">
-            <div>
-                <label for="ingredientName">材料:</label>
-                <input type="text" name="ingredientNames" required>
-                <label for="amount">量:</label>
-                <input type="text" name="amounts" required>
-                <label for="unit">単位:</label>
-                <input type="text" name="units" required>
-                <button type="button" onclick="removeIngredient(this)">削除</button>
-                <button type="button" onclick="addIngredient()">材料追加</button>
-            </div>
-        </div>
+		<h2>Ingredient</h2>
+		<button type="button" onclick="addIngredient()">addIng.</button>
+		<div id="ingredients">
+			<div>
+				<label for="ingredientName">ing.</label> <input type="text"
+					name="ingredientNames" required placeholder="材料"> <label for="amount">amounts </label>
+				<input type="text" name="amounts" required placeholder="量"> <label
+					for="unit">unit </label> <input type="text" name="units" required placeholder="単位">
+				<button type="button" onclick="removeIngredient(this)">delete</button>
+			</div>
+		</div>
 
-        <h2>工程</h2>
-        <div id="steps">
-            <div>
-                <label for="stepDetail">工程内容:</label>
-                <textarea name="stepDetails" required></textarea>
-                <label for="point">ポイント:</label>
-                <textarea name="points"></textarea>
-                <button type="button" onclick="removeStep(this)">削除</button>
-            </div>
-        </div>
-        <button type="button" onclick="addStep()">工程追加</button>
+		<h2>Step</h2>
+		<button type="button" onclick="addStep()">addStep</button>
+		<div id="steps">
+			<div class=step_form>
+				<label for="stepDetail">1 :</label>
+				<textarea name="stepDetails" required placeholder="手順"></textarea>
+				<label for="point">point </label>
+				<textarea name="points" placeholder="ポイント"></textarea>
+				<button type="button" onclick="removeStep(this)">delete</button>
+			</div>
+		</div>
 
-        <br><br>
-        <button type="submit">追加</button>
-        <button type="button" onclick="fillTestData()">テストデータ入力</button>
-        <a href="/" style="text-decoration: none; margin-left: 10px;"><button type="button">戻る</button></a>
-    </form>
+		<br>
+		<br>
+		<div class=bottom_submit>
+		<button type="submit">add</button>
+		<button type="button" onclick="fillTestData()">TestData</button>
+		<a href="/" style="text-decoration: none; margin-left: 10px;"><button
+				type="button">back</button></a>
+		</div>
+	</form>
 </body>
 </html>
