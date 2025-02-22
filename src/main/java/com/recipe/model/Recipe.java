@@ -24,6 +24,7 @@ public class Recipe {
     private String recipeName;
     private String recipeSummary;
     private String category;
+    private Integer servings;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ingredient> ingredients;
@@ -34,10 +35,11 @@ public class Recipe {
     // デフォルトコンストラクタ
     public Recipe() {}
 
-    // 新しいコンストラクタ
-    public Recipe(String recipeName, String recipeSummary, String category) {
+    // コンストラクタを修正
+    public Recipe(String recipeName, String recipeSummary, String category, Integer servings) {
         this.recipeName = recipeName;
         this.recipeSummary = recipeSummary;
         this.category = category;
+        this.servings = servings;
     }
 }

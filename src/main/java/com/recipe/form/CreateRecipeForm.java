@@ -18,6 +18,9 @@ public class CreateRecipeForm {
 	private String category;
 
 	@NotEmpty
+	private Integer servings;
+
+	@NotEmpty
 	private List<String> ingredientNames;
 
 	@NotEmpty

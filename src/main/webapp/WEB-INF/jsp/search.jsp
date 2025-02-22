@@ -31,6 +31,7 @@
 						<ul>
 							<li>説明 : ${recipe.recipeSummary}</li>
 							<li>カテゴリ : ${recipe.category}</li>
+							<li>人数 : ${recipe.servings}人前</li>
 							<li>材料</li>
 							<ul>
 								<c:forEach var="ingredient" items="${recipe.ingredients}">
