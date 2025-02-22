@@ -1,9 +1,0 @@
-com\recipe\service\RecipeService.class
-com\recipe\model\Recipe.class
-com\recipe\model\Ingredient.class
-com\recipe\repository\StepRepository.class
-com\recipe\model\Step.class
-com\recipe\repository\IngredientRepository.class
-com\recipe\controller\RecipeController.class
-com\recipe\repository\RecipeRepository.class
-com\recipe\RecipeApplication.class

@@ -40,7 +40,12 @@ public class RecipeService {
     }
 
     public void addRecipe(CreateRecipeForm CreateRecipeForm) {
-        Recipe recipe = new Recipe(CreateRecipeForm.getRecipeName(), CreateRecipeForm.getRecipeSummary(), CreateRecipeForm.getCategory());
+        Recipe recipe = new Recipe(
+            CreateRecipeForm.getRecipeName(), 
+            CreateRecipeForm.getRecipeSummary(), 
+            CreateRecipeForm.getCategory(),
+            CreateRecipeForm.getServings()
+        );
         recipeRepository.save(recipe);
 
         List<Ingredient> ingredients = new ArrayList<Ingredient>();

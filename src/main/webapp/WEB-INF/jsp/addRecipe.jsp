@@ -47,6 +47,7 @@
             document.getElementById("recipeName").value = "テストレシピ";
             document.getElementById("recipeSummary").value = "これはテスト用のレシピです。";
             document.getElementById("category").value = "和食";
+            document.getElementById("servings").value = "2";
 
             let ingredientInputs = document.querySelectorAll("#ingredients div");
             if (ingredientInputs.length === 1) {
@@ -71,12 +72,17 @@
 
 	<form action="/add" method="post">
 		<div class="recipe_form">
-			<label for="recipeName">recipeName</label> <input type="text"
-				id="recipeName" name="recipeName" required placeholder="レシピ名"> <label
-				for="recipeSummary">Summary</label>
+			<label for="recipeName">recipeName</label>
+			<input type="text" id="recipeName" name="recipeName" required placeholder="レシピ名">
+			
+			<label for="recipeSummary">Summary</label>
 			<textarea id="recipeSummary" name="recipeSummary" placeholder="概要"></textarea>
-			<label for="category">category</label> <input type="text" id="category"
-				name="category" placeholder="カテゴリ">
+			
+			<label for="category">category</label>
+			<input type="text" id="category" name="category" placeholder="カテゴリ">
+			
+			<label for="servings">servings</label>
+			<input type="number" id="servings" name="servings" required placeholder="何人前" min="1">
 		</div>
 
 		<h2>Ingredient</h2>
