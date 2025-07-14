@@ -1,0 +1,1 @@
+UPDATE recipestable SET servings = 1 WHERE servings IS NULL; 

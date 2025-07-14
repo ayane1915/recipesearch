@@ -8,10 +8,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor // デフォルトコンストラクタ
 @Entity
 @Table(name = "stepstable")
 public class Step {
@@ -26,9 +28,6 @@ public class Step {
     @ManyToOne
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
-
-    // デフォルトコンストラクタ
-    public Step() {}
 
     // 新しいコンストラクタ
     public Step(Recipe recipe, int stepNumber, String stepDetail, String point) {
