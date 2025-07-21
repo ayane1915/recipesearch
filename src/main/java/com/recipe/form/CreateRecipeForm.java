@@ -3,11 +3,9 @@ package com.recipe.form;
 import java.util.List;
 
 import jakarta.validation.constraints.NotEmpty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class CreateRecipeForm {
 
 	@NotEmpty
@@ -18,13 +16,13 @@ public class CreateRecipeForm {
 	private String category;
 
 	@NotEmpty
-	private Integer servings;
+	private int servings;
 
 	@NotEmpty
 	private List<String> ingredientNames;
 
 	@NotEmpty
-	private List<Integer> amounts;
+	private List<String> amounts;
 
 	@NotEmpty
 	private List<String> units;

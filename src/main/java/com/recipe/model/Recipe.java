@@ -9,11 +9,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.Min;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor // デフォルトコンストラクタ
 @Entity
 @Table(name = "recipestable")
 public class Recipe {
@@ -24,7 +28,10 @@ public class Recipe {
     private String recipeName;
     private String recipeSummary;
     private String category;
-    private Integer servings;
+    
+    @Column(nullable = false)
+    @Min(value = 1, message = "人数は1人以上を指定してください")
+    private int servings;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ingredient> ingredients;
@@ -32,11 +39,8 @@ public class Recipe {
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Step> steps;
 
-    // デフォルトコンストラクタ
-    public Recipe() {}
-
-    // コンストラクタを修正
-    public Recipe(String recipeName, String recipeSummary, String category, Integer servings) {
+    // 必要なフィールドのみを引数に持つコンストラクタ
+    public Recipe(String recipeName, String recipeSummary, String category, int servings) {
         this.recipeName = recipeName;
         this.recipeSummary = recipeSummary;
         this.category = category;

@@ -5,15 +5,31 @@
 <head>
 <meta charset="UTF-8">
 <title>レシピ追加</title>
-<link rel="stylesheet" type="text/css" href="/css/addRecipe.css">
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/addRecipe.css">
 <script>
+        let isComposing = false;
+
+        function convertToHalfWidth(input) {
+            if (isComposing) return;
+            const fullWidth = '０１２３４５６７８９';
+            const halfWidth = '0123456789';
+            let value = input.value;
+            let newValue = value.replace(/[０-９]/g, s => halfWidth[fullWidth.indexOf(s)]);
+            if (value !== newValue) {
+                input.value = newValue;
+                // カーソルを末尾に移動
+                input.setSelectionRange(newValue.length, newValue.length);
+            }
+        }
+
         function addIngredient() {
             var ingredientDiv = document.createElement('div');
             ingredientDiv.innerHTML = `
                 <label for="ingredientName">ing.</label>
                 <input type="text" name="ingredientNames" required>
                 <label for="amount">amounts</label>
-                <input type="text" name="amounts" required>
+                <input type="text" name="amounts" required placeholder="量）" oninput="convertToHalfWidth(this)">
                 <label for="unit">unit</label>
                 <input type="text" name="units" required>
                 <button type="button" onclick="removeIngredient(this)">削除</button>
@@ -62,15 +78,36 @@
                 stepInputs[0].querySelector("textarea[name='points']").value = "なるべく均等な大きさにする。";
             }
         }
+
+        // ページ読み込み時に全amountsフィールドへIME監視イベントを付与
+        document.addEventListener('DOMContentLoaded', function() {
+            function setIMEListeners(input) {
+                input.addEventListener('compositionstart', function() { isComposing = true; });
+                input.addEventListener('compositionend', function() { isComposing = false; convertToHalfWidth(input); });
+            }
+            document.querySelectorAll('input[name="amounts"]').forEach(setIMEListeners);
+
+            // 動的追加にも対応
+            const ingredients = document.getElementById('ingredients');
+            ingredients.addEventListener('DOMNodeInserted', function(e) {
+                if (e.target.querySelector) {
+                    const input = e.target.querySelector('input[name="amounts"]');
+                    if (input) setIMEListeners(input);
+                }
+            });
+        });
     </script>
 </head>
 <body>
 	<h1>Add Recipe</h1>
 	<c:if test="${not empty message}">
-		<p>${message}</p>
+		<p style="color: green;">${message}</p>
+	</c:if>
+	<c:if test="${not empty errorMessage}">
+		<p style="color: red;">${errorMessage}</p>
 	</c:if>
 
-	<form action="/add" method="post">
+	<form action="/add" method="post" class=add_form>
 		<div class="recipe_form">
 			<label for="recipeName">recipeName</label>
 			<input type="text" id="recipeName" name="recipeName" required placeholder="レシピ名">
@@ -82,7 +119,11 @@
 			<input type="text" id="category" name="category" placeholder="カテゴリ">
 			
 			<label for="servings">servings</label>
-			<input type="number" id="servings" name="servings" required placeholder="何人前" min="1">
+			<select id="servings" name="servings" required>
+				<% for(int i=1; i<=6; i++) { %>
+					<option value="<%= i %>" <%= i==1 ? "selected" : "" %>><%= i %>人前</option>
+				<% } %>
+			</select>
 		</div>
 
 		<h2>Ingredient</h2>
@@ -91,7 +132,7 @@
 			<div>
 				<label for="ingredientName">ing.</label> <input type="text"
 					name="ingredientNames" required placeholder="材料"> <label for="amount">amounts </label>
-				<input type="text" name="amounts" required placeholder="量"> <label
+				<input type="text" name="amounts" required placeholder="量" oninput="convertToHalfWidth(this)"> <label
 					for="unit">unit </label> <input type="text" name="units" required placeholder="単位">
 				<button type="button" onclick="removeIngredient(this)">delete</button>
 			</div>
