@@ -29,12 +29,14 @@
                 <label for="ingredientName">ing.</label>
                 <input type="text" name="ingredientNames" required>
                 <label for="amount">amounts</label>
-                <input type="text" name="amounts" required placeholder="量）" oninput="convertToHalfWidth(this)">
+                <input type="text" name="amounts" required oninput="convertToHalfWidth(this)">
                 <label for="unit">unit</label>
                 <input type="text" name="units" required>
-                <button type="button" onclick="removeIngredient(this)">削除</button>
+                <button type="button" onclick="removeIngredient(this)">delete</button>
             `;
             document.getElementById('ingredients').appendChild(ingredientDiv);
+            // 新しく追加された要素にIME監視イベントを付与
+            attachIMEListenersToNewElements();
         }
 
         var stepCount = 2;
@@ -45,7 +47,7 @@
                 <textarea name="stepDetails" required></textarea>
                 <label for="point">point</label>
                 <textarea name="points"></textarea>
-                <button type="button" onclick="removeStep(this)">削除</button>
+                <button type="button" onclick="removeStep(this)">delete</button>
             `;
             document.getElementById('steps').appendChild(stepDiv);
             stepCount++;
@@ -86,29 +88,33 @@
                 input.addEventListener('compositionend', function() { isComposing = false; convertToHalfWidth(input); });
             }
             document.querySelectorAll('input[name="amounts"]').forEach(setIMEListeners);
+        });
 
-            // 動的追加にも対応
-            const ingredients = document.getElementById('ingredients');
-            ingredients.addEventListener('DOMNodeInserted', function(e) {
-                if (e.target.querySelector) {
-                    const input = e.target.querySelector('input[name="amounts"]');
-                    if (input) setIMEListeners(input);
+        // 動的追加された要素にIME監視イベントを付与する関数
+        function attachIMEListenersToNewElements() {
+            const newAmountsInputs = document.querySelectorAll('input[name="amounts"]');
+            newAmountsInputs.forEach(input => {
+                // 既にイベントリスナーが付いているかチェック
+                if (!input.hasAttribute('data-ime-attached')) {
+                    input.addEventListener('compositionstart', function() { isComposing = true; });
+                    input.addEventListener('compositionend', function() { isComposing = false; convertToHalfWidth(input); });
+                    input.setAttribute('data-ime-attached', 'true');
                 }
             });
-        });
+        }
     </script>
 </head>
 <body>
 	<h1>Add Recipe</h1>
-	<c:if test="${not empty message}">
-		<p style="color: green;">${message}</p>
-	</c:if>
-	<c:if test="${not empty errorMessage}">
-		<p style="color: red;">${errorMessage}</p>
-	</c:if>
 
 	<form action="/add" method="post" class=add_form>
 		<div class="recipe_form">
+			<c:if test="${not empty message}">
+				<p class="success-message">${message}</p>
+			</c:if>
+			<c:if test="${not empty errorMessage}">
+				<p class="error-message">${errorMessage}</p>
+			</c:if>
 			<label for="recipeName">recipeName</label>
 			<input type="text" id="recipeName" name="recipeName" required placeholder="レシピ名">
 			
