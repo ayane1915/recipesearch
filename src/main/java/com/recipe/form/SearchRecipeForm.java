@@ -1,16 +1,9 @@
 package com.recipe.form;
 
-import jakarta.validation.constraints.NotEmpty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class SearchRecipeForm {
-
-	@NotEmpty
 	private String recipeName;
-
-	@NotEmpty
 	private String ingredientName;
 }
