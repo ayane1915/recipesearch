@@ -43,6 +43,11 @@
             button.parentNode.remove();
         }
 
+        function autoResizeTextarea(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+        }
+
         function fillTestData() {
             document.getElementById("recipeName").value = "テストレシピ";
             document.getElementById("recipeSummary").value = "これはテスト用のレシピです。";
@@ -62,6 +67,17 @@
                 stepInputs[0].querySelector("textarea[name='points']").value = "なるべく均等な大きさにする。";
             }
         }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            const recipeSummary = document.getElementById('recipeSummary');
+            if (recipeSummary) {
+                recipeSummary.addEventListener('input', function() {
+                    autoResizeTextarea(this);
+                });
+                // 初期表示時にも高さを調整
+                autoResizeTextarea(recipeSummary);
+            }
+        });
     </script>
 </head>
 <body>
@@ -76,7 +92,7 @@
 			<input type="text" id="recipeName" name="recipeName" required placeholder="レシピ名">
 			
 			<label for="recipeSummary">Summary</label>
-			<textarea id="recipeSummary" name="recipeSummary" placeholder="概要"></textarea>
+			<textarea id="recipeSummary" name="recipeSummary" placeholder="概要" maxlength="255"></textarea>
 			
 			<label for="category">category</label>
 			<input type="text" id="category" name="category" placeholder="カテゴリ">

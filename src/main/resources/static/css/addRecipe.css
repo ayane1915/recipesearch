@@ -91,9 +91,25 @@ textarea {
 }
 
 .recipe_form input[type="text"],
+.recipe_form input[type="number"] {
+  width: 25%;
+  height: 23px;
+}
+
 textarea {
   width: 200px;
   height: 23px;
+}
+
+#recipeSummary {
+  width: 26%;
+  min-height: 23px;
+  height: 23px;
+  resize: vertical;
+  overflow-y: hidden;
+  padding: 8px;
+  line-height: 1.5;
+  font-family: 'Caveat', cursive;
 }
 
 button {
