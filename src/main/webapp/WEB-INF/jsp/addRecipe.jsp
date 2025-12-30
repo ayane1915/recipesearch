@@ -61,6 +61,11 @@
             button.parentNode.remove();
         }
 
+        function autoResizeTextarea(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+        }
+
         function fillTestData() {
             document.getElementById("recipeName").value = "テストレシピ";
             document.getElementById("recipeSummary").value = "これはテスト用のレシピです。";
@@ -81,27 +86,16 @@
             }
         }
 
-        // ページ読み込み時に全amountsフィールドへIME監視イベントを付与
-        document.addEventListener('DOMContentLoaded', function() {
-            function setIMEListeners(input) {
-                input.addEventListener('compositionstart', function() { isComposing = true; });
-                input.addEventListener('compositionend', function() { isComposing = false; convertToHalfWidth(input); });
+        window.addEventListener('DOMContentLoaded', function() {
+            const recipeSummary = document.getElementById('recipeSummary');
+            if (recipeSummary) {
+                recipeSummary.addEventListener('input', function() {
+                    autoResizeTextarea(this);
+                });
+                // 初期表示時にも高さを調整
+                autoResizeTextarea(recipeSummary);
             }
-            document.querySelectorAll('input[name="amounts"]').forEach(setIMEListeners);
         });
-
-        // 動的追加された要素にIME監視イベントを付与する関数
-        function attachIMEListenersToNewElements() {
-            const newAmountsInputs = document.querySelectorAll('input[name="amounts"]');
-            newAmountsInputs.forEach(input => {
-                // 既にイベントリスナーが付いているかチェック
-                if (!input.hasAttribute('data-ime-attached')) {
-                    input.addEventListener('compositionstart', function() { isComposing = true; });
-                    input.addEventListener('compositionend', function() { isComposing = false; convertToHalfWidth(input); });
-                    input.setAttribute('data-ime-attached', 'true');
-                }
-            });
-        }
     </script>
 </head>
 <body>
@@ -119,7 +113,7 @@
 			<input type="text" id="recipeName" name="recipeName" required placeholder="レシピ名">
 			
 			<label for="recipeSummary">Summary</label>
-			<textarea id="recipeSummary" name="recipeSummary" placeholder="概要"></textarea>
+			<textarea id="recipeSummary" name="recipeSummary" placeholder="概要" maxlength="255"></textarea>
 			
 			<label for="category">category</label>
 			<input type="text" id="category" name="category" placeholder="カテゴリ">
