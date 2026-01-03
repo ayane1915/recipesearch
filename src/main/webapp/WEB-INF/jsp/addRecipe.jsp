@@ -17,7 +17,7 @@
                 <input type="text" name="amounts">
                 <label for="unit">unit</label>
                 <input type="text" name="units">
-                <button type="button" onclick="removeIngredient(this)">削除</button>
+                <button type="button" class="remove-btn" onclick="removeIngredient(this)">delete</button>
             `;
                     document.getElementById('ingredients').appendChild(ingredientDiv);
                 }
@@ -30,7 +30,7 @@
                 <textarea name="stepDetails"></textarea>
                 <label for="point">point</label>
                 <textarea name="points" class="auto-resize-textarea"></textarea>
-                <button type="button" onclick="removeStep(this)">削除</button>
+                <button type="button" class="remove-btn" onclick="removeStep(this)">delete</button>
             `;
                     document.getElementById('steps').appendChild(stepDiv);
                     stepCount++;
@@ -148,6 +148,10 @@
 
         <body>
             <h1>Add Recipe</h1>
+            <div class="header-buttons">
+                <a href="/"><button type="button">back</button></a>
+                <button type="button" onclick="fillTestData()">TestData</button>
+            </div>
             <c:if test="${not empty message}">
                 <p>${message}</p>
             </c:if>
@@ -181,7 +185,7 @@
                             placeholder="材料"> <label for="amount">amounts </label>
                         <input type="text" name="amounts" required placeholder="量"> <label for="unit">unit </label>
                         <input type="text" name="units" required placeholder="単位">
-                        <button type="button" onclick="removeIngredient(this)">delete</button>
+                        <button type="button" class="remove-btn" onclick="removeIngredient(this)">delete</button>
                     </div>
                 </div>
 
@@ -193,7 +197,7 @@
                         <textarea name="stepDetails" required placeholder="手順"></textarea>
                         <label for="point">point </label>
                         <textarea name="points" class="auto-resize-textarea" placeholder="ポイント"></textarea>
-                        <button type="button" onclick="removeStep(this)">delete</button>
+                        <button type="button" class="remove-btn" onclick="removeStep(this)">delete</button>
                     </div>
                 </div>
 
@@ -201,9 +205,6 @@
                 <br>
                 <div class=bottom_submit>
                     <button type="submit">add</button>
-                    <button type="button" onclick="fillTestData()">TestData</button>
-                    <a href="/" style="text-decoration: none; margin-left: 10px;"><button
-                            type="button">back</button></a>
                 </div>
             </form>
         </body>
