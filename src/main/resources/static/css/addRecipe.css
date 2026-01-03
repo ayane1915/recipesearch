@@ -149,14 +149,3 @@ button:hover::before {
     width: 100%;
     box-sizing: border-box;
 }
-
-
-/* textarea[name="points"],
-.auto-resize-textarea {
-    min-height: 23px;
-    height: 23px;
-    resize: vertical;
-    overflow-y: hidden;
-    padding: 8px;
-    line-height: 1.5;
-} */
