@@ -72,6 +72,21 @@ label {
     background: #f1f1f1;
 }
 
+textarea {
+    width: 150px;
+    height: 23px;
+    margin-right: 20px;
+    box-sizing: border-box;
+    color: #27acd9;
+    vertical-align: middle;
+}
+
+.recipe_form input[type="text"],
+textarea {
+    width: 200px;
+    height: 23px;
+}
+
 .remove-btn {
     background: #f8d7da !important;
     color: #d927ac !important;
@@ -89,21 +104,6 @@ label {
 
 .remove-btn:hover::before {
     border-color: #d927ac !important;
-}
-
-textarea {
-    width: 150px;
-    height: 23px;
-    margin-right: 20px;
-    box-sizing: border-box;
-    color: #27acd9;
-    vertical-align: middle;
-}
-
-.recipe_form input[type="text"],
-textarea {
-    width: 200px;
-    height: 23px;
 }
 
 button {
