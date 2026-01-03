@@ -18,9 +18,9 @@ h1 {
 }
 
 h2 {
-	margin: 0 auto;
-	padding-top: 50px;
-	padding-bottom: 10px;
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 10px;
 }
 
 form {
@@ -37,12 +37,12 @@ label {
 }
 
 .recipe_form label {
-	display: block;
+    display: block;
 }
 
 .step_form label {
-	margin-top: 2px;
-	margin-bottom: 20px;
+    margin-top: 2px;
+    margin-bottom: 20px;
 }
 
 .input-group {
@@ -92,50 +92,60 @@ textarea {
 
 .recipe_form input[type="text"],
 textarea {
-  width: 200px;
-  height: 23px;
+    width: 200px;
+    height: 23px;
 }
 
 button {
-	vertical-align: middle;
-	text-decoration: none;
-	position: relative;
-	padding: 3px 20px 5px 20px;
-	color: #27acd9;
-	background: #e1f3f9;
-	transition: 0.3s ease-in-out;
-	margin: 5px 5px;
-	font-family: 'Caveat', cursive;
-	font-size: 16px;
+    vertical-align: middle;
+    text-decoration: none;
+    position: relative;
+    padding: 3px 20px 5px 20px;
+    color: #27acd9;
+    background: #e1f3f9;
+    transition: 0.3s ease-in-out;
+    margin: 5px 5px;
+    font-family: 'Caveat', cursive;
+    font-size: 16px;
 }
 
 .bottom_submit button {
-	font-size: 20px;
-	width: 100px;
-	height: 45px;
+    font-size: 20px;
+    width: 100px;
+    height: 45px;
 }
 
 button::before {
-  content: '';
-  position: absolute;
-  top: -5px;
-  left: -5px;
-  width: calc(100% - 4px);
-  height: calc(100% - 4px);
-  border: 2px solid #27acd9;
-  transition: 0.2s;
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    border: 2px solid #27acd9;
+    transition: 0.2s;
 }
 
 button:hover {
-	background: #27acd9;
-	color: #fff;
+    background: #27acd9;
+    color: #fff;
 }
 
 button:hover::before {
-  top: 0;
-  left: 0;
+    top: 0;
+    left: 0;
 }
 
 .form-section {
     margin-bottom: 20px;
+}
+
+.form-field {
+    width: 200px;
+}
+
+.form-field input,
+.form-field textarea {
+    width: 100%;
+    box-sizing: border-box;
 }
