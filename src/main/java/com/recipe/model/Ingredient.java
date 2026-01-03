@@ -8,10 +8,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor // デフォルトコンストラクタ
 @Entity
 @Table(name = "ingredienstable")
 public class Ingredient {
@@ -26,14 +28,11 @@ public class Ingredient {
     private Recipe recipe;
 
     private String ingredientName;
-    private Integer amount;
+    private Double amount;
     private String unit;
 
-    // デフォルトコンストラクタ
-    public Ingredient() {}
-
     // 新しいコンストラクタ
-    public Ingredient(Recipe recipe, String ingredientName, Integer amount, String unit) {
+    public Ingredient(Recipe recipe, String ingredientName, Double amount, String unit) {
         this.recipe = recipe;
         this.ingredientName = ingredientName;
         this.amount = amount;
