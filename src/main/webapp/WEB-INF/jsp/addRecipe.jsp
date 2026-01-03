@@ -11,11 +11,11 @@
             var ingredientDiv = document.createElement('div');
             ingredientDiv.innerHTML = `
                 <label for="ingredientName">ing.</label>
-                <input type="text" name="ingredientNames" required>
+                <input type="text" name="ingredientNames">
                 <label for="amount">amounts</label>
-                <input type="text" name="amounts" required>
+                <input type="text" name="amounts">
                 <label for="unit">unit</label>
-                <input type="text" name="units" required>
+                <input type="text" name="units">
                 <button type="button" onclick="removeIngredient(this)">削除</button>
             `;
             document.getElementById('ingredients').appendChild(ingredientDiv);
@@ -26,7 +26,7 @@
             var stepDiv = document.createElement('div');
             stepDiv.innerHTML = `
                 <label for="stepDetail">` + stepCount + ` :</label>
-                <textarea name="stepDetails" required></textarea>
+                <textarea name="stepDetails"></textarea>
                 <label for="point">point</label>
                 <textarea name="points"></textarea>
                 <button type="button" onclick="removeStep(this)">削除</button>
@@ -41,6 +41,49 @@
 
         function removeStep(button) {
             button.parentNode.remove();
+        }
+
+        function autoResizeTextarea(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+        }
+
+        function removeEmptyFields() {
+            // 空の材料フィールドを削除
+            const ingredientDivs = document.querySelectorAll('#ingredients > div');
+            ingredientDivs.forEach(function(div, index) {
+                if (index > 0) { // 最初の1つ以外
+                    const nameInput = div.querySelector('input[name="ingredientNames"]');
+                    const amountInput = div.querySelector('input[name="amounts"]');
+                    const unitInput = div.querySelector('input[name="units"]');
+                    
+                    const nameValue = nameInput ? nameInput.value.trim() : '';
+                    const amountValue = amountInput ? amountInput.value.trim() : '';
+                    const unitValue = unitInput ? unitInput.value.trim() : '';
+                    
+                    // すべて空の場合は削除
+                    if (!nameValue && !amountValue && !unitValue) {
+                        div.remove();
+                    }
+                }
+            });
+            
+            // 空の手順フィールドを削除
+            const stepDivs = document.querySelectorAll('#steps > div');
+            stepDivs.forEach(function(div, index) {
+                if (index > 0) { // 最初の1つ以外
+                    const stepTextarea = div.querySelector('textarea[name="stepDetails"]');
+                    const pointTextarea = div.querySelector('textarea[name="points"]');
+                    
+                    const stepValue = stepTextarea ? stepTextarea.value.trim() : '';
+                    const pointValue = pointTextarea ? pointTextarea.value.trim() : '';
+                    
+                    // 手順が空の場合は削除（ポイントだけ入力されている場合は残す）
+                    if (!stepValue) {
+                        div.remove();
+                    }
+                }
+            });
         }
 
         function fillTestData() {
@@ -62,6 +105,25 @@
                 stepInputs[0].querySelector("textarea[name='points']").value = "なるべく均等な大きさにする。";
             }
         }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            const recipeSummary = document.getElementById('recipeSummary');
+            if (recipeSummary) {
+                recipeSummary.addEventListener('input', function() {
+                    autoResizeTextarea(this);
+                });
+                // 初期表示時にも高さを調整
+                autoResizeTextarea(recipeSummary);
+            }
+            
+            // フォーム送信前に空のフィールドを削除
+            const form = document.querySelector('form[action="/add"]');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    removeEmptyFields();
+                });
+            }
+        });
     </script>
 </head>
 <body>

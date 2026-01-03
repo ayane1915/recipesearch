@@ -50,16 +50,38 @@ public class RecipeService {
 
         List<Ingredient> ingredients = new ArrayList<Ingredient>();
         for (int i = 0; i < CreateRecipeForm.getIngredientNames().size(); i++) {
-            Ingredient ingredient = new Ingredient(recipe, CreateRecipeForm.getIngredientNames().get(i), CreateRecipeForm.getAmounts().get(i), CreateRecipeForm.getUnits().get(i));
+            String name = CreateRecipeForm.getIngredientNames().get(i);
+            Integer amount = CreateRecipeForm.getAmounts().get(i);
+            String unit = CreateRecipeForm.getUnits().get(i);
+            
+            // 空の値を除外（最初の1つ以外で、すべて空の場合はスキップ）
+            if (i > 0 && (name == null || name.trim().isEmpty()) 
+                && (amount == null) 
+                && (unit == null || unit.trim().isEmpty())) {
+                continue;
+            }
+            
+            Ingredient ingredient = new Ingredient(recipe, name, amount, unit);
             ingredients.add(ingredient);
         }
         ingredientRepository.saveAll(ingredients);
 
         List<Step> steps = new ArrayList<Step>();
+        int stepNumber = 1;
         for (int i = 0; i < CreateRecipeForm.getStepDetails().size(); i++) {
-            Step step = new Step(recipe, i + 1, CreateRecipeForm.getStepDetails().get(i), CreateRecipeForm.getPoints().get(i));
-            steps.add(step);
+            String stepDetail = CreateRecipeForm.getStepDetails().get(i);
+            String point = (CreateRecipeForm.getPoints() != null && i < CreateRecipeForm.getPoints().size()) 
+                ? CreateRecipeForm.getPoints().get(i) : null;
+            
+            // 空の値を除外（最初の1つ以外で、手順が空の場合はスキップ）
+            if (i > 0 && (stepDetail == null || stepDetail.trim().isEmpty())) {
+                continue;
             }
+            
+            Step step = new Step(recipe, stepNumber, stepDetail, point);
+            steps.add(step);
+            stepNumber++;
+        }
         stepRepository.saveAll(steps);
     }
 
